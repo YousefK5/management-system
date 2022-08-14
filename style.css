@@ -1,0 +1,25 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+header nav ul {
+    list-style: none;
+    display: flex;
+}
+
+header nav ul li{
+    padding: 10px;
+}
+
+header nav ul li a{
+    text-decoration: none;
+    color: aqua;
+    /* padding: 20px; */
+    font-size: 22px;
+}
+
+header {
+    background-color: brown;
+    height: 50px;
+}

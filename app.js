@@ -39,6 +39,8 @@ let employees = [
     new Employee(1006,"Hadi Ahmad" , "Finance","Mid-Senior"), 
 ];
 
+
 for (let index = 0; index < employees.length; index++) {
     console.log(employees[index].print());
 }
+

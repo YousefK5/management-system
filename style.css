@@ -23,3 +23,18 @@ header {
     background-color: brown;
     height: 50px;
 }
+
+footer {
+    text-align: center;
+    background-color: brown;
+    height: 50px;
+    font-size: 24px;
+    color: white;
+}
+
+main {
+    min-height: 100vh;
+    background-color: gainsboro;
+    text-align: center;
+    padding: 50px 10%;
+}

@@ -1,8 +1,9 @@
-function Employee(id,name,dep,level) {
+function Employee(id,name,dep,level,img) {
     this.id=id;
     this.name=name;
     this.dep=dep;
     this.level=level;
+    this.imgUrl=img;
     this.salary=calc();
 
     function calc() {
@@ -28,61 +29,84 @@ function Employee(id,name,dep,level) {
 
 }
 
-let employees = [
-    new Employee(1000,"Ghazi Samer" , "Administration","Senior"),
-    new Employee(1001,"Lana Ali" , "Finance","Senior"),
-    new Employee(1002,"Tamara Ayoub" , "Marketing","Senior"),
-    new Employee(1003,"Safi Walid" , "Administration","Mid-Senior"),
-    new Employee(1004,"Omar Zaid" , "Development","Senior"),
-    new Employee(1005,"Rana Saleh" , "Development","Junior"),
-    new Employee(1006,"Hadi Ahmad" , "Finance","Mid-Senior"), 
-];
+// let employees = [
+//     new Employee(1000,"Ghazi Samer" , "Administration","Senior"),
+//     new Employee(1001,"Lana Ali" , "Finance","Senior"),
+//     new Employee(1002,"Tamara Ayoub" , "Marketing","Senior"),
+//     new Employee(1003,"Safi Walid" , "Administration","Mid-Senior"),
+//     new Employee(1004,"Omar Zaid" , "Development","Senior"),
+//     new Employee(1005,"Rana Saleh" , "Development","Junior"),
+//     new Employee(1006,"Hadi Ahmad" , "Finance","Mid-Senior"), 
+// ];
 
-for (let index = 0; index < employees.length; index++) {
-    console.log(employees[index].print());
+// localStorage.clear();
+
+let employees=[];
+
+let cards=document.getElementById("cards");
+
+console.log(localStorage.getItem("employees"));
+if(localStorage.getItem("employees")!=null) {
+    employees = JSON.parse(localStorage.getItem("employees"));
+    for(let i=0;i<employees.length ; i++) {
+        addEmployee(employees[i]);
+    }
 }
 
-// Second Task
-let main= document.getElementsByTagName("main");
+let inputId= document.querySelector(`[name=id]`);
+let inputName= document.querySelector(`[name=name]`);
+let selectDepart= document.querySelector(`#depart`);
+let selectLevel= document.querySelector(`#level`);
+let imgUrl=document.querySelector(`[name=img]`);
+let subButton=document.getElementById("subButton");
 
-let table = document.createElement("table");
+inputId.value=1000+employees.length;
 
-table.style.cssText="border:5px solid black ; border-collapse: collapse";
-let headers = ["Employee ID" , "Full Name" , "Department" , "Level" , "Salary"];
-let ths=[];
+subButton.addEventListener("click" , e => {
+    if(inputName.value=="") {
+        alert("Please Enter Employee Name");
+    } 
+    else {
+        let isID=false;
+        employees.forEach(el => {
+            if(el.id==inputId.value) {
+                isID=true;
+            }
+        });
+        if(isID) {
+            alert("ID already exist !");
+        }
+        else {
+            let employee= new Employee(inputId.value , inputName.value , selectDepart.value , selectLevel.value , imgUrl.value);
+            employees.push(employee);
+            addEmployee(employee);
+            localStorage.setItem("employees" , JSON.stringify(employees));
+            location.reload();
+}}
+});
 
-for(let i=0;i<headers.length;i++) {
-    ths[i]=document.createElement("th");
-    ths[i].textContent=headers[i];
-}
-
-let thead = document.createElement("thead");
-
-for(let i=0;i<ths.length;i++){
-    thead.append(ths[i]);
-    ths[i].style.cssText="padding : 5px ; width:150px ; border:1px solid black;font-size:22px"
-}
-
-let tbody= document.createElement("tbody");
+cards.style.cssText = "display:flex ; justify-content:space-around ; flex-wrap:wrap ; align-items: center"
 
 function addEmployee(emp) {
-    let tr=document.createElement("tr");
-    let empKeys = [emp.id,emp.name,emp.dep,emp.level,emp.salary];
-    let tds=[];
-
-    for(let i=0;i<empKeys.length;i++) {
-        tds[i]=document.createElement("td");
-        tds[i].style.cssText="font-size:20px; border:1px solid black;padding:5px";
-        tds[i].textContent=empKeys[i];
-        tr.append(tds[i]);
-    }
-    return tr;
+    let card=document.createElement("div");
+    card.style.cssText="border-radius:10px; margin: 10px; padding : 10px 20px ; background-color:#293462 ; width: 250px ; height: 400px ; box-shadow: 8px 11px 10px 2px rgb(41 52 98)";
+    
+    let img = document.createElement("img");
+    img.src=emp.imgUrl;
+    img.style.cssText = "width :100% ; height: 65%;margin-bottom:10px ; border-radius:10%"
+    
+    let info= document.createElement("div");
+    info.style.cssText= "font-size : 18px; color: white";
+    info.innerHTML=`Name : ${emp.name} <br> ID: ${emp.id} <br> Department: ${emp.dep} <br> Level: ${emp.level} <br> Salary : ${emp.salary}$`;
+    
+    card.append(img);
+    card.append(info);
+    cards.append(card);
 }
 
-for (let index = 0; index < employees.length; index++) {
-    tbody.append(addEmployee(employees[index]));
-}
+let remove= document.getElementById("clear");
 
-table.append(thead);
-table.append(tbody);
-main[0].append(table);
+remove.onclick =function (){
+    localStorage.clear();
+    location.reload();
+}

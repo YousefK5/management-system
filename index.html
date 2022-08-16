@@ -16,7 +16,40 @@
         </ul>
       </nav>
     </header>
-    <main></main>
+    <main>
+      <h2>Add new Employee</h2>
+      <div id="form">
+        <label for="id">ID</label> <br />
+        <input type="number" name="id" for="id" required />
+        <br />
+        <label for="name">Employee Name</label><br />
+        <input required type="text" name="name" id="name" />
+        <br />
+        <label for="depart">Department</label> <br />
+        <select name="depart" id="depart">
+          <option value="Administration">Administration</option>
+          <option value="Marketing">Marketing</option>
+          <option value="Development">Development</option>
+          <option value="Finance">Finance</option>
+        </select>
+        <br />
+        <label for="level">Level</label> <br />
+        <select name="level" id="level">
+          <option value="Junior">Junior</option>
+          <option value="Mid-Senior">Mid-Senior</option>
+          <option value="Senior">Senior</option>
+        </select>
+        <br />
+        <label for="img">Image URL</label> <br />
+        <input type="text" name="img" id="img" />
+        <br />
+        <!-- <input type="submit" id="subButton" /> -->
+        <button id="subButton">Add Employee</button>
+      </div>
+      <h2>Employee Cards</h2>
+      <div class="cards" id="cards"></div>
+      <button id="clear">Remove All Employees</button>
+    </main>
     <footer>Task JavaScript &copy; 2022</footer>
     <script src="app.js"></script>
   </body>

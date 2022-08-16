@@ -105,6 +105,12 @@ function addEmployee(emp) {
 }
 
 let remove= document.getElementById("clear");
+let headCards=document.getElementById("headCards");
+
+if(employees.length==0) {
+    remove.style.display = "none";
+    headCards.style.display = "none";
+}
 
 remove.onclick =function (){
     localStorage.clear();
